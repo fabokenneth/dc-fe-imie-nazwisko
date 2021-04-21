@@ -41,73 +41,41 @@
 </template>
 
 <script lang="ts">
-  import { ref, defineComponent,watch } from 'vue'
+  import { ref, defineComponent } from 'vue'
   import { useI18n } from 'vue-i18n'
+  import { getCharacters } from '../services/RichAndMortyAPI'
+
   export default defineComponent({
-  name: 'HelloWorld',
-  props: {
-    msg: {
-      type: String,
-      required: true
-    }
-  },
-  setup: () => {
-
-    fetch('https://rickandmortyapi.com/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    name: 'HelloWorld',
+    props: {
+      msg: {
+        type: String,
+        required: true,
       },
-      body: JSON.stringify({
-        query:
-          `query {
-  characters(page: 1, filter: { name: "rick" }) {
-    info {
-      count
-    }
-    results {
-      id,
-      name,
-      species,
-      gender,
-      image
-    }
-  }
-  location(id: 1) {
-    id
-  }
-  episodesByIds(ids: [1, 2]) {
-    id
-  }
-}`
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data.data)
-      });
-
-    const count = ref(0)
-    const i18n = useI18n({});
-    return { t: i18n.t, count }
-  }
+    },
+    setup: () => {
+      getCharacters()
+      const count = ref(0)
+      const i18n = useI18n({})
+      return { t: i18n.t, count }
+    },
   })
 </script>
 
 <style scoped>
-a {
-  color: #42b983;
-}
+  a {
+    color: #42b983;
+  }
 
-label {
-  margin: 0 0.5em;
-  font-weight: bold;
-}
+  label {
+    margin: 0 0.5em;
+    font-weight: bold;
+  }
 
-code {
-  background-color: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #304455;
-}
+  code {
+    background-color: #eee;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: #304455;
+  }
 </style>

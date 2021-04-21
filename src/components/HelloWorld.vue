@@ -1,6 +1,12 @@
 <template>
   <h1>{{ msg }}</h1>
   <h1>{{ t('message.hello') }}</h1>
+  <i class="material-icons">search</i>
+  <i class="material-icons">close</i>
+  <i class="material-icons">remove</i>
+  <i class="material-icons">star</i>
+  <i class="material-icons">male</i>
+  <i class="material-icons">female</i>
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>

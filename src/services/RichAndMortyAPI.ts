@@ -1,4 +1,6 @@
-export const getCharacters = async () =>
+import { ResponseData } from '../types/CharactersType.interface'
+
+export const getCharacters = async (): Promise<ResponseData> =>
   await fetch('https://rickandmortyapi.com/graphql', {
     method: 'POST',
     headers: {
@@ -18,16 +20,6 @@ export const getCharacters = async () =>
       image
     }
   }
-  location(id: 1) {
-    id
-  }
-  episodesByIds(ids: [1, 2]) {
-    id
-  }
 }`,
     }),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data.data)
-    })
+  }).then((res) => res.json())

@@ -54,7 +54,9 @@
       },
     },
     setup: () => {
-      getCharacters()
+      getCharacters().then((result) => {
+        console.log(result.data)
+      })
       const count = ref(0)
       const i18n = useI18n({})
       return { t: i18n.t, count }

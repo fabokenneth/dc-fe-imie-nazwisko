@@ -1,6 +1,6 @@
 <template>
   <h1>{{ msg }}</h1>
-
+  <h1>{{ t('message.hello') }}</h1>
   <p>
     Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
@@ -36,6 +36,7 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
+import { useI18n } from "vue-i18n";
 export default defineComponent({
   name: 'HelloWorld',
   props: {
@@ -46,7 +47,8 @@ export default defineComponent({
   },
   setup: () => {
     const count = ref(0)
-    return { count }
+    const i18n = useI18n({});
+    return { t: i18n.t, count }
   }
 })
 </script>

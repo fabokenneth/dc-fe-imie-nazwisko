@@ -1,5 +1,5 @@
 export function useCypressCommands() {
-  function assertTextIs(value, selector) {
+  function assertTextIs(value: string, selector: string) {
     cy.get(selector)
       .invoke('text')
       .invoke('trim')
@@ -9,9 +9,14 @@ export function useCypressCommands() {
 
   function goToCharactersAreaList() {
     cy.get("[data-test-id='characters-area-mn']").click()
-    cy.wait(250)
     return {
-      assertHasEntry(id, name, gender, species, lastEpisode) {
+      assertHasEntry(
+        id: string,
+        name: string,
+        gender: string,
+        species: string,
+        lastEpisode: string
+      ) {
         cy.get(
           `[data-test-id='characters-area-list'] > tbody > [data-test-id='${id}']`
         ).within(() => {
@@ -26,7 +31,7 @@ export function useCypressCommands() {
     }
   }
 
-  function searchByCriteria(criteria, searchedText) {
+  function searchByCriteria(criteria: string, searchedText: string) {
     cy.visit('/')
     cy.get("[data-test-id='search-criteria']").select(criteria)
     cy.get("[data-test-id='search-field']").type(searchedText)

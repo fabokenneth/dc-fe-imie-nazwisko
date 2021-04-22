@@ -1,5 +1,4 @@
 import { useCypressCommands } from './utils/common'
-
 const { searchByCriteria, goToCharactersAreaList } = useCypressCommands()
 
 describe('Search', () => {

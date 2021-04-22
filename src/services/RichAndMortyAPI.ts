@@ -8,7 +8,7 @@ export const getCharacters = async (): Promise<ResponseData> =>
     },
     body: JSON.stringify({
       query: `query {
-  characters(page: 1, filter: { name: "rick" }) {
+  characters(filter: { }) {
     info {
       count
     }
@@ -17,7 +17,12 @@ export const getCharacters = async (): Promise<ResponseData> =>
       name,
       species,
       gender,
-      image
+            image,
+      episode {
+        id
+        episode
+        air_date
+      }
     }
   }
 }`,

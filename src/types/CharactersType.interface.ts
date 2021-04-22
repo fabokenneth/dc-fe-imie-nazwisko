@@ -13,10 +13,17 @@ export interface Info {
   count: number
 }
 
+export interface Episode {
+  id: number
+  air_date: string
+  episode: string
+}
+
 export interface Character {
   id: number
   name: string
   species: string
   gender: string
   image: string
+  episode: Episode[]
 }

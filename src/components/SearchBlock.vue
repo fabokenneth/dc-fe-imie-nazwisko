@@ -14,8 +14,8 @@
   </div>
 </template>
 
-<script>
-import {defineComponent, reactive} from "vue";
+<script lang="ts">
+import {defineComponent, reactive, watch} from "vue";
 import SearchTypePicker from "./SearchTypePicker.vue";
 import SearchTextInput from "./SearchTextInput.vue";
 import {SearchBy} from "../types/Ui.interface";
@@ -25,9 +25,20 @@ export default defineComponent({
   name: "SearchBlock",
   components: {
     "search-type-picker": SearchTypePicker,
-    "search-text-input": SearchTextInput,
+    "search-text-input": SearchTextInput
   },
-  setup() {
+  props: {
+    searchText: {
+      type: String,
+      required: true,
+    },
+    searchType: {
+      type: String as PropType<SearchBy>,
+      required: true
+    }
+  },
+  emits: ["update:searchText", "update:searchType"],
+  setup(props, {emit}) {
     const i18n = useI18n({
       messages: {
         en: {
@@ -42,9 +53,12 @@ export default defineComponent({
       }
     })
     const state = reactive({
-      searchType: SearchBy.Name,
-      searchText: ""
+      searchType: props.searchType,
+      searchText: props.searchText,
     });
+
+    watch(() => state.searchText, (newValue) => emit("update:searchText", newValue));
+    watch(() => state.searchType, (newValue) => emit("update:searchType", newValue));
 
     return {
       t: i18n.t,

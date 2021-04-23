@@ -1,5 +1,8 @@
 <template>
-  <dropdown-menu :items="items" v-model="state.selection"/>
+  <dropdown-menu
+      :items="items"
+      v-model="state.selection"
+      :withRing="true"/>
 </template>
 
 <script lang="ts">

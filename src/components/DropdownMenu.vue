@@ -2,6 +2,7 @@
   <hui-menu as="div" class="relative flex flex-col">
     <hui-menu-button
       class="flex items-center justify-between w-full shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-colliers-400 cursor-pointer"
+      :class="withRing ? 'ring-1 ring-gray-800 ring-opacity-10': ''"
     >
       <span class="searchBoxText">
         {{ t('menuItem.' + selectedItem.id + '_lbl') }}
@@ -61,6 +62,10 @@
         required: true,
         default: () => new Array<DropdownMenuItemData>(),
       },
+      withRing: {
+        type: Boolean,
+        default: false
+      }
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {

@@ -1,20 +1,21 @@
 <template>
-  <div class="bg-red-900">
-    <img alt="Vue logo" src="./assets/logo.png"/>
+  <div class="flex flex-col items-center">
+    <div class="flex items-center">
+      <div class="w-32 mr-10">
+        <img src="./assets/logo.jpg">
+      </div>
+      <div>
+        <search-block
+            v-model:search-text="state.searchText"
+            v-model:search-type="state.searchType"
+        />
+      </div>
+      <div class="ml-5 w-28">
+        <language-picker/>
+      </div>
+    </div>
+    <div></div>
   </div>
-  <div class="m-2">
-    <search-type-picker v-model="state.searchType"/>
-  </div>
-  <div class="m-2">
-    <language-picker/>
-  </div>
-  <div class="m-2">
-    <search-text-input v-model="state.searchText"/>
-  </div>
-  <div class="m-2">
-    <search-block/>
-  </div>
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite"/>
 </template>
 
 <script lang="ts">

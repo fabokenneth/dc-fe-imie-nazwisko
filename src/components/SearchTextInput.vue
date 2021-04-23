@@ -1,6 +1,5 @@
 <template>
-  <div class="flex items-center rounded-r-md w-56 ring-1 ring-gray-300 focus:outline-none justify-between
-  focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-colliers-400">
+  <div class="flex items-center rounded-r-md w-full justify-between">
     <input type="search" class="w-4/5 border-0 p-1 focus:outline-none"
     v-model="state.searchText">
     <div class="mt-2 mr-2 text-colliers-400">

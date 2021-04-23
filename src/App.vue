@@ -2,10 +2,17 @@
   <div class="bg-red-900">
     <img alt="Vue logo" src="./assets/logo.png"/>
   </div>
-  <search-type-picker v-model="state.searchType"/>
-  <language-picker/>
+  <div class="m-2">
+    <search-type-picker v-model="state.searchType"/>
+  </div>
+  <div class="m-2">
+    <language-picker/>
+  </div>
   <div class="m-2">
     <search-text-input v-model="state.searchText"/>
+  </div>
+  <div class="m-2">
+    <search-block/>
   </div>
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite"/>
 </template>
@@ -17,6 +24,7 @@ import SearchTypePicker from "./components/SearchTypePicker.vue";
 import {SearchBy} from "./types/Ui.interface";
 import LanguagePicker from "./components/LanguagePicker.vue";
 import SearchTextInput from "./components/SearchTextInput.vue";
+import SearchBlock from "./components/SearchBlock.vue";
 
 export default defineComponent({
   name: 'App',
@@ -24,7 +32,8 @@ export default defineComponent({
     HelloWorld,
     "search-type-picker": SearchTypePicker,
     "language-picker": LanguagePicker,
-    "search-text-input": SearchTextInput
+    "search-text-input": SearchTextInput,
+    "search-block": SearchBlock
   },
   setup() {
     const state = reactive({

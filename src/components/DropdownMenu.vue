@@ -1,13 +1,13 @@
 <template>
   <hui-menu as="div" class="relative flex flex-col">
-    <hui-menu-button class="flex items-center justify-between w-28 ring-1 ring-black ring-opacity-5
+    <hui-menu-button class="flex items-center justify-between w-full
 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700
 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2
 focus:ring-offset-gray-100 focus:ring-colliers-400 cursor-pointer">
-      <span>
+      <span class="searchBoxText">
         {{ t("menuItem." + selectedItem.id + "_lbl") }}
       </span>
-      <svg class="w-4 h-4 ml-2 -mr-1" viewBox="0 0 20 20" fill="currentColor">
+      <svg class="w-4 h-4 ml-2 -mr-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
         <path
             fillRule="evenodd"
             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -16,19 +16,19 @@ focus:ring-offset-gray-100 focus:ring-colliers-400 cursor-pointer">
       </svg>
     </hui-menu-button>
     <hui-menu-items
-        class="flex flex-col absolute top-9 cursor-pointer w-28 shadow-lg bg-white ring-1
-ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none rounded-b-md"
+        class="flex flex-col absolute top-9 cursor-pointer w-28 bg-white rounded-b-xl border-l-2 border-r-2 border-b-2 border-gray-300"
     >
       <hui-menu-item
-          v-for="itemData in menuItemsData"
+          v-for="(itemData, index) in menuItemsData"
           :key="itemData.index"
           class="menuItem"
+          :class="index > -1 ? 'border-t-2 border-gray-300' : ''"
           @click="onItemSelected(itemData)"
           v-slot="{ active }"
       >
-        <span :class="active ? 'bg-colliers-400 text-white': 'text-gray-700'">
+        <div :class="active ? 'bg-colliers-400 text-white': 'text-gray-700'">
           {{ t("menuItem." + itemData.id + "_lbl") }}
-        </span>
+        </div>
       </hui-menu-item>
     </hui-menu-items>
   </hui-menu>
@@ -85,6 +85,6 @@ export default defineComponent({
 
 <style scoped>
 .menuItem {
-  @apply group flex items-center px-4 py-2 text-sm border-t border-gray-300
+  @apply group flex items-center px-4 py-2 text-sm
 }
 </style>

@@ -3,3 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.searchBoxText {
+    @apply text-xs text-gray-400 font-normal;
+}

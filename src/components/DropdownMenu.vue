@@ -16,14 +16,14 @@ focus:ring-offset-gray-100 focus:ring-colliers-400 cursor-pointer">
       </svg>
     </hui-menu-button>
     <hui-menu-items
-        class="flex flex-col cursor-pointer w-28 shadow-lg bg-white ring-1
+        class="flex flex-col absolute top-9 cursor-pointer w-28 shadow-lg bg-white ring-1
 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none rounded-b-md"
     >
       <hui-menu-item
           v-for="itemData in menuItemsData"
           :key="itemData.index"
           class="menuItem"
-          @click="itemSelected(itemData)"
+          @click="onItemSelected(itemData)"
           v-slot="{ active }"
       >
         <span :class="active ? 'bg-colliers-400 text-white': 'text-gray-700'">
@@ -35,15 +35,10 @@ ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none rounded-b-
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, ref} from "vue";
-import {useI18n} from 'vue-i18n'
+import {computed, defineComponent, PropType, ref} from "vue";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/vue";
-import {FilterType} from "../types/Ui.interface";
-
-interface ItemData {
-  id: FilterType;
-  index: number;
-}
+import {DropdownMenuItemData} from "../types/Ui.interface";
+import {useI18n} from "vue-i18n";
 
 export default defineComponent({
   name: "DropdownMenu",
@@ -53,60 +48,36 @@ export default defineComponent({
     "hui-menu-items": MenuItems,
     "hui-menu-item": MenuItem
   },
-  setup() {
-    const i18n = useI18n({
-      messages: {
-        en: {
-          menuItem: {
-            name_lbl: "Name",
-            identifier_lbl: "Identifier",
-            episode_lbl: "Episode",
-          }
-        },
-        fr: {
-          menuItem: {
-            name_lbl: "Nom",
-            identifier_lbl: "Identifiant",
-            episode_lbl: "Épisode",
-          }
-        },
-        de: {
-          menuItem: {
-            name_lbl: "Name",
-            identifier_lbl: "Kennung",
-            episode_lbl: "Folge",
-          }
-        }
-      }
-    });
-
-    const items = [
-      {
-        id: FilterType.Name,
-        index: 0
-      },
-      {
-        id: FilterType.Identifier,
-        index: 1
-      },
-      {
-        id: FilterType.Episode,
-        index: 2
-      }
-    ];
-    const selectedItem = ref(items[0])
-
-    const menuItemsData = computed((): ItemData[] => items.sort((a, b) => a.index - b.index));
-    const itemSelected = (item: ItemData): void => {
-      selectedItem.value = item;
+  props: {
+    modelValue: {
+      type: Object as PropType<DropdownMenuItemData>,
+      default: null,
+    },
+    items: {
+      required: true,
+      type: Array <DropdownMenuItemData>
     }
+  },
+  emits: ["update:modelValue"],
+  setup(props, {emit}) {
+    const i18n = useI18n({
+      useScope: "global"
+    })
+    const selectedItem = ref(props.modelValue)
 
+    const menuItemsData = computed(
+        (): DropdownMenuItemData[] => props.items.sort((a, b) => a.index - b.index)
+    );
+    const onItemSelected = (item: DropdownMenuItemData): void => {
+      selectedItem.value = item;
+      emit("update:modelValue", item);
+    }
 
     return {
       t: i18n.t,
       selectedItem,
       menuItemsData,
-      itemSelected
+      onItemSelected
     }
   }
 })

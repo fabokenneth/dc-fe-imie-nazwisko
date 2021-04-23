@@ -4,6 +4,9 @@
   </div>
   <search-type-picker v-model="state.searchType"/>
   <language-picker/>
+  <div class="m-2">
+    <search-text-input v-model="state.searchText"/>
+  </div>
   <HelloWorld msg="Hello Vue 3 + TypeScript + Vite"/>
 </template>
 
@@ -13,17 +16,20 @@ import HelloWorld from './components/HelloWorld.vue'
 import SearchTypePicker from "./components/SearchTypePicker.vue";
 import {SearchBy} from "./types/Ui.interface";
 import LanguagePicker from "./components/LanguagePicker.vue";
+import SearchTextInput from "./components/SearchTextInput.vue";
 
 export default defineComponent({
   name: 'App',
   components: {
     HelloWorld,
     "search-type-picker": SearchTypePicker,
-    "language-picker": LanguagePicker
+    "language-picker": LanguagePicker,
+    "search-text-input": SearchTextInput
   },
   setup() {
     const state = reactive({
-      searchType: SearchBy.Name
+      searchType: SearchBy.Name,
+      searchText: ""
     });
 
     return {

@@ -83,7 +83,7 @@
             </td>
             <td class="pl-6 py-3">
               <div
-                  class="w-11 h-11 border border-colliersCyan-400 rounded-md
+                  class="w-11 h-11 border-2 border-colliersCyan-400 rounded-md
                   flex items-center justify-center text-colliersCyan-400 cursor-pointer">
                 <i class="material-icons">star</i>
               </div>
@@ -97,8 +97,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, reactive} from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import {computed, defineComponent, onMounted, reactive} from 'vue'
 import SearchTypePicker from "./components/SearchTypePicker.vue";
 import {SearchBy} from "./types/Ui.interface";
 import {Character} from "./types/CharactersType.interface";
@@ -106,6 +105,7 @@ import LanguagePicker from "./components/LanguagePicker.vue";
 import SearchTextInput from "./components/SearchTextInput.vue";
 import SearchBlock from "./components/SearchBlock.vue";
 import {useI18n} from "vue-i18n";
+import { getCharacters } from "./services/RichAndMortyAPI"
 
 enum TabType {
   AllCharacters,
@@ -115,7 +115,6 @@ enum TabType {
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld,
     "search-type-picker": SearchTypePicker,
     "language-picker": LanguagePicker,
     "search-text-input": SearchTextInput,
@@ -212,6 +211,11 @@ export default defineComponent({
           ]
         }] as Character[]
     });
+
+    onMounted(async () => {
+      const response = await getCharacters();
+      state.characters = response.data.characters.results;
+    })
 
     const tabSelectionStyleForAllCharacters = computed(() => state.activeTab === TabType.AllCharacters ? 'selectedTab' : '')
     const tabSelectionStyleForFavorites = computed(() => state.activeTab === TabType.Favorites ? 'selectedTab' : '')

@@ -86,7 +86,9 @@
               </td>
               <td class="pl-6 py-3">
                 <div
-                  class="w-11 h-11 border-2 border-colliersCyan-400 rounded-md flex items-center justify-center text-colliersCyan-400 cursor-pointer"
+                  class="w-11 h-11 border-2 border-colliersCyan-400 rounded-md flex items-center justify-center cursor-pointer"
+                  :class="{isFavorite: isFavorite(character), isNotFavorite: !isFavorite(character)}"
+                  @click="toggleFavorite(character)"
                 >
                   <i class="material-icons">star</i>
                 </div>
@@ -106,7 +108,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted, reactive} from 'vue'
+import {computed, defineComponent, nextTick, onMounted, reactive} from 'vue'
 import SearchTypePicker from "./components/SearchTypePicker.vue";
 import {SearchBy} from "./types/Ui.interface";
 import {Character} from "./types/CharactersType.interface";
@@ -207,10 +209,12 @@ export default defineComponent({
       searchText: "",
       activeTab: TabType.AllCharacters,
       pages: 0,
-      characters: [] as Character[]
+      characters: [] as Character[],
+      favorites: [] as number[]
     });
 
     onMounted( () => {
+      readFavorites();
       navigateTo(1);
     })
 
@@ -224,6 +228,27 @@ export default defineComponent({
       state.characters = response.data.characters.results;
     }
 
+    const toggleFavorite = (character : Character) => {
+      if (isFavorite(character)) {
+        state.favorites = state.favorites.filter(c => c !== character.id);
+      } else {
+        state.favorites.push(character.id);
+      }
+      nextTick(() => saveFavorites());
+    }
+
+    const isFavorite = (character: Character) => state.favorites.includes(character.id);
+
+    const saveFavorites = () => localStorage.setItem("favorites", JSON.stringify(state.favorites));
+    const readFavorites = () => {
+      let item = localStorage.getItem("favorites");
+      if (item) {
+        state.favorites = JSON.parse(item);
+      } else {
+        state.favorites = [];
+      }
+    }
+
     return {
       t: i18n.t,
       state,
@@ -232,6 +257,8 @@ export default defineComponent({
       onTabClicked,
       TabType,
       navigateTo,
+      toggleFavorite,
+      isFavorite
     }
   }
 })
@@ -254,4 +281,12 @@ export default defineComponent({
 .selectedTab {
   @apply border-colliersCyan-400 text-colliersCyan-400;
 }
+
+.isFavorite {
+  @apply bg-colliersCyan-400 text-white;
+}
+.isNotFavorite {
+  @apply bg-white text-colliersCyan-400;
+}
+
 </style>

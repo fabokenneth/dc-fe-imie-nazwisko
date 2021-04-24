@@ -27,7 +27,7 @@
           },
           fr: {
             menuItem: {
-              en_lbl: 'Englais',
+              en_lbl: 'Anglais',
               fr_lbl: 'Francais',
               de_lbl: 'Allemand',
             },

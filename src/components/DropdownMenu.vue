@@ -1,7 +1,8 @@
 <template>
-  <hui-menu as="div" class="relative flex flex-col">
+  <hui-menu as="div" class="relative flex flex-col h-full w-full">
     <hui-menu-button
-      class="flex items-center justify-between w-full shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-colliers-400 cursor-pointer"
+      class="flex items-center justify-between w-full px-4 bg-white text-sm font-medium focus:outline-none cursor-pointer"
+      :class="withRing ? 'border border-colliersGray-400 h-12 top-12': 'h-full'"
     >
       <span class="searchBoxText">
         {{ t('menuItem.' + selectedItem.id + '_lbl') }}
@@ -19,17 +20,18 @@
       </svg>
     </hui-menu-button>
     <hui-menu-items
-      class="flex flex-col absolute top-9 cursor-pointer w-28 bg-white rounded-b-xl border-l-2 border-r-2 border-b-2 border-gray-300"
+      class="flex flex-col absolute cursor-pointer w-full bg-white rounded-b-xl border-l border-r border-b border-colliersGray-400"
+      :class="withRing ? 'top-12 -mt-1' : 'top-16 -mt-3'"
     >
       <hui-menu-item
         v-for="(itemData, index) in menuItemsData"
         :key="itemData.index"
         v-slot="{ active }"
         class="menuItem"
-        :class="index > -1 ? 'border-t-2 border-gray-300' : ''"
+        :class="index > -1 ? 'border-t border-colliersGray-400' : ''"
         @click="onItemSelected(itemData)"
       >
-        <div :class="active ? 'bg-colliers-400 text-white' : 'text-gray-700'">
+        <div :class="active ? 'bg-colliersCyan-400 text-white' : 'text-gray-700'">
           {{ t('menuItem.' + itemData.id + '_lbl') }}
         </div>
       </hui-menu-item>
@@ -61,6 +63,10 @@
         required: true,
         default: () => new Array<DropdownMenuItemData>(),
       },
+      withRing: {
+        type: Boolean,
+        default: false
+      }
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {
@@ -90,6 +96,6 @@
 
 <style scoped>
   .menuItem {
-    @apply group flex items-center px-4 py-2 text-sm;
+    @apply group flex items-center px-4 h-12 text-sm;
   }
 </style>

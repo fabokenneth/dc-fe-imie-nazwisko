@@ -7,8 +7,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        colliers: {
+        colliersCyan: {
           400: "#11B0C8"
+        },
+        colliersGray: {
+          300: "#E5EAF4",
+          400: "#A9B1BD"
         }
       }
     },
@@ -16,5 +20,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+      require("@tailwindcss/aspect-ratio")
+  ],
 }

@@ -1,12 +1,12 @@
 export interface ResponseData {
-  data?: Result
+  data: Result
 }
 export interface Result {
-  characters?: CharactersTypes
+  characters: CharactersTypes
 }
 export interface CharactersTypes {
-  info?: Info
-  results?: Character[]
+  info: Info
+  results: Character[]
 }
 
 export interface Info {

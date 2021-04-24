@@ -20,11 +20,18 @@ export interface Episode {
   episode: string
 }
 
+export enum Gender {
+  Male= "Male",
+  Female= "Female",
+  unknown= "unknown",
+  Genderless= "Genderless"
+}
+
 export interface Character {
   id: number
   name: string
   species: string
-  gender: string
+  gender: Gender
   image: string
   episode: Episode[]
 }

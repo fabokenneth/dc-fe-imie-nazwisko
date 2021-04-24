@@ -2,7 +2,11 @@
   <hui-menu as="div" class="relative flex flex-col h-full w-full">
     <hui-menu-button
       class="flex items-center justify-between w-full px-4 bg-white text-sm font-medium focus:outline-none cursor-pointer"
-      :class="withRing ? 'border border-colliersGray-400 h-12 top-12': 'h-full'"
+      :class="
+        withBorder
+          ? 'border border-colliersGray-400 h-14 top-12 rounded-md'
+          : 'h-full'
+      "
     >
       <span class="searchBoxText">
         {{ t('menuItem.' + selectedItem.id + '_lbl') }}
@@ -21,7 +25,7 @@
     </hui-menu-button>
     <hui-menu-items
       class="flex flex-col absolute cursor-pointer w-full bg-white rounded-b-xl border-l border-r border-b border-colliersGray-400"
-      :class="withRing ? 'top-12 -mt-1' : 'top-16 -mt-3'"
+      :class="withBorder ? 'top-12 -mt-1' : 'top-16 -mt-3'"
     >
       <hui-menu-item
         v-for="(itemData, index) in menuItemsData"
@@ -31,7 +35,9 @@
         :class="index > -1 ? 'border-t border-colliersGray-400' : ''"
         @click="onItemSelected(itemData)"
       >
-        <div :class="active ? 'bg-colliersCyan-400 text-white' : 'text-gray-700'">
+        <div
+          :class="active ? 'bg-colliersCyan-400 text-white' : 'text-gray-700'"
+        >
           {{ t('menuItem.' + itemData.id + '_lbl') }}
         </div>
       </hui-menu-item>
@@ -63,10 +69,10 @@
         required: true,
         default: () => new Array<DropdownMenuItemData>(),
       },
-      withRing: {
+      withBorder: {
         type: Boolean,
-        default: false
-      }
+        default: false,
+      },
     },
     emits: ['update:modelValue'],
     setup(props, { emit }) {

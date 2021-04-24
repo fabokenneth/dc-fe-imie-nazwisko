@@ -95,7 +95,10 @@
           </tbody>
         </table>
         <div class="pl-20 mt-12 mb-8">
-          <pagination :total="state.pages" :position="state.currentPage"/>
+          <pagination
+              :total="state.pages"
+              :fetchData="navigateTo"
+          />
         </div>
       </div>
     </div>
@@ -204,19 +207,22 @@ export default defineComponent({
       searchText: "",
       activeTab: TabType.AllCharacters,
       pages: 0,
-      currentPage: 1,
       characters: [] as Character[]
     });
 
-    onMounted(async () => {
-      const response = await getCharacters(state.currentPage);
-      state.pages = response.data.characters.info.pages;
-      state.characters = response.data.characters.results;
+    onMounted( () => {
+      navigateTo(1);
     })
 
     const allCharactersTabSelected = computed(() => state.activeTab === TabType.AllCharacters)
     const favoritesTabSelected = computed(() => state.activeTab === TabType.Favorites)
     const onTabClicked = (tabType: TabType) => state.activeTab = tabType;
+
+    const navigateTo = async (page: number) => {
+      const response = await getCharacters(page);
+      state.pages = response.data.characters.info.pages;
+      state.characters = response.data.characters.results;
+    }
 
     return {
       t: i18n.t,
@@ -225,6 +231,7 @@ export default defineComponent({
       favoritesTabSelected,
       onTabClicked,
       TabType,
+      navigateTo,
     }
   }
 })

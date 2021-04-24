@@ -1,12 +1,13 @@
 <template>
   <div class="flex items-center justify-start">
     <pagination-button
+        :execute="goToPrevious"
         :is-active="hasPrevious"
         :is-selected="false"
         :is-three-dots="false"
     >
-      <div class="fill-current"
-          :class="{arrowActive: hasPrevious, arrowNotActive: !hasPrevious}"
+      <div :class="{arrowActive: hasPrevious, arrowNotActive: !hasPrevious}"
+           class="fill-current"
       >
         <svg height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
           <path d="M24 0v24H0V0h24z" fill="none" opacity=".87"/>
@@ -17,19 +18,21 @@
     <pagination-button
         v-for="entry in entries"
         :key="entry.id"
+        :execute="() => goTo(entry.position)"
         :is-active="entry.isActive"
-        :is-selected="entry.position === position"
+        :is-selected="entry.position === state.position"
         :is-three-dots="entry.isThreeDots"
     >
       {{ entry.text }}
     </pagination-button>
     <pagination-button
+        :execute="goToNext"
         :is-active="hasNext"
         :is-selected="false"
         :is-three-dots="false"
     >
-      <div class="fill-current"
-           :class="{arrowActive: hasNext, arrowNotActive: !hasNext}">
+      <div :class="{arrowActive: hasNext, arrowNotActive: !hasNext}"
+           class="fill-current">
         <svg height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0h24v24H0V0z" fill="none"/>
           <path d="M10 17l5-5-5-5v10z"/>
@@ -40,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, onMounted, reactive, watch} from "vue";
+import {computed, defineComponent, onMounted, PropType, reactive, watch} from "vue";
 import PaginationButton from "./PaginationButton.vue";
 
 interface ButtonData {
@@ -61,14 +64,15 @@ export default defineComponent({
       type: Number,
       required: true
     },
-    position: {
-      type: Number,
+    fetchData: {
+      type: Function as PropType<(pageIndex: number) => void>,
       required: true
     }
   },
-  setup(props) {
+  setup(props, {emit}) {
     const state = reactive({
-      entries: [] as ButtonData[]
+      entries: [] as ButtonData[],
+      position: 1
     });
 
     onMounted(() => computeEntries());
@@ -101,13 +105,13 @@ export default defineComponent({
       }
     }
     const addCurrentPosition = () => {
-      if (props.position > 1 && props.position < props.total) {
+      if (state.position > 1 && state.position < props.total) {
         state.entries.push({
-          id: props.position,
-          text: "" + props.position,
+          id: state.position,
+          text: "" + state.position,
           isActive: false,
           isThreeDots: false,
-          position: props.position,
+          position: state.position,
         })
       }
     }
@@ -115,7 +119,7 @@ export default defineComponent({
       const toTheLeftSide = factor === -1;
       const toTheRightSide = factor === 1;
       for (let i = 1; i <= 3; i++) {
-        const position = props.position + i * factor;
+        const position = state.position + i * factor;
         if ((toTheLeftSide && position > 1)
             || (toTheRightSide && position < props.total)) {
           state.entries.push({
@@ -127,7 +131,7 @@ export default defineComponent({
           })
         }
       }
-      if (toTheLeftSide && props.position - 4 > 1) {
+      if (toTheLeftSide && state.position - 4 > 1) {
         state.entries.push({
           id: 1,
           text: "...",
@@ -136,7 +140,7 @@ export default defineComponent({
           position: -1,
         })
       }
-      if (toTheRightSide && props.position + 4 < props.total) {
+      if (toTheRightSide && state.position + 4 < props.total) {
         state.entries.push({
           id: props.total,
           text: "...",
@@ -147,23 +151,37 @@ export default defineComponent({
       }
     }
 
-    watch(() => props.position + props.total, () => {
+    watch(() => state.position + props.total, () => {
       state.entries.length = 0;
       computeEntries();
     });
+    watch(
+        () => state.position,
+        newValue => emit("update:position", newValue)
+    )
 
-
-    const hasPrevious = computed(() => props.position > 1);
-    const hasNext = computed(() => props.position < props.total);
+    const hasPrevious = computed(() => state.position > 1);
+    const hasNext = computed(() => state.position < props.total);
     const entries = computed(() => {
       const clonedEntries: ButtonData[] = [...state.entries];
       return clonedEntries.sort((a, b) => a.id - b.id)
     });
+    const goTo = (position: number) => {
+      props.fetchData(position);
+      state.position = position;
+    };
+
+    const goToPrevious = () => goTo(state.position - 1);
+    const goToNext = () => goTo(state.position + 1);
+
     return {
       state,
       hasPrevious,
       hasNext,
-      entries
+      entries,
+      goToPrevious,
+      goToNext,
+      goTo,
     }
   }
 })
@@ -173,6 +191,7 @@ export default defineComponent({
 .arrowActive {
   @apply text-colliersCyan-400;
 }
+
 .arrowNotActive {
   @apply text-colliersGray-400;
 }

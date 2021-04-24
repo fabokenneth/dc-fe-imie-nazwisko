@@ -33,7 +33,7 @@
         </div>
       </div>
       <div class="w-full">
-        <table class="text-left">
+        <table class="text-left mb-12">
           <thead class="bg-colliersGray-300">
             <tr class="h-14">
               <th class="w-1/12 pl-20 pr-20 py-3">
@@ -55,7 +55,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="character in state.characters"
+              v-for="character in characters"
               :key="character.id"
               class="mt-1 h-20 border-b border-colliersGray-300"
             >
@@ -96,7 +96,7 @@
             </tr>
           </tbody>
         </table>
-        <div class="pl-20 mt-12 mb-8">
+        <div v-if="allCharactersTabSelected" class="pl-20 mb-8">
           <pagination
               :total="state.pages"
               :fetchData="navigateTo"
@@ -249,6 +249,15 @@ export default defineComponent({
       }
     }
 
+    const characters = computed(() => {
+      if (allCharactersTabSelected.value) {
+        return state.characters;
+      } else if (favoritesTabSelected.value) {
+        return state.characters.filter(c => isFavorite(c));
+      }
+      return [];
+    });
+
     return {
       t: i18n.t,
       state,
@@ -258,7 +267,8 @@ export default defineComponent({
       TabType,
       navigateTo,
       toggleFavorite,
-      isFavorite
+      isFavorite,
+      characters
     }
   }
 })

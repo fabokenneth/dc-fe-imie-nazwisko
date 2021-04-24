@@ -22,7 +22,7 @@ export default defineComponent({
   emits: ["update:modelValue"],
   setup(props, {emit}) {
     const state = reactive({
-      isActive: false,
+      isSelected: false,
       searchText: props.modelValue
     })
     watch(() => state.searchText, newValue =>  emit("update:modelValue", newValue))

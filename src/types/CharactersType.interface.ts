@@ -10,7 +10,8 @@ export interface CharactersTypes {
 }
 
 export interface Info {
-  count: number
+  count: number,
+  pages: number
 }
 
 export interface Episode {

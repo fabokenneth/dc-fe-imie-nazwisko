@@ -1,6 +1,6 @@
 import { ResponseData } from '../types/CharactersType.interface'
 
-export const getCharacters = async (): Promise<ResponseData> =>
+export const getCharacters = async (currentPage: number): Promise<ResponseData> =>
   await fetch('https://rickandmortyapi.com/graphql', {
     method: 'POST',
     headers: {
@@ -8,9 +8,10 @@ export const getCharacters = async (): Promise<ResponseData> =>
     },
     body: JSON.stringify({
       query: `query {
-  characters(filter: { }) {
+  characters(page:` + currentPage + `, filter: { }) {
     info {
-      count
+      count,
+      pages
     }
     results {
       id,

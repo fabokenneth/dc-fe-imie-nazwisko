@@ -4,7 +4,8 @@
   <i class="material-icons">search</i>
   <i class="material-icons">close</i>
   <i class="material-icons">remove</i>
-  <i class="material-icons">star</i>
+
+  <i class="material-icons">male</i>
   <i class="material-icons">male</i>
   <i class="material-icons">female</i>
   <p>

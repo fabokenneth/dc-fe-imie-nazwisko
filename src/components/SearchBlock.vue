@@ -1,11 +1,11 @@
 <template>
-  <div class="flex items-center justify-start rounded-md border-2 border-gray-300 w-96 h-10">
-    <div class="flex items-center border-r-2 border-r-gray-300 h-full">
+  <div class="flex items-center justify-start rounded-md border border-colliersGray-400 w-96 h-14">
+    <div class="flex items-center h-full">
       <div class="searchBoxText justify-center w-24">
         {{ t("searchBy_lbl")}}
       </div>
     </div>
-    <div class="w-36 border-r-2 border-r-gray-300 h-full">
+    <div class="w-40 border-l border-r border-colliersGray-400 h-full">
       <search-type-picker v-model="state.searchType"/>
     </div>
     <div class="w-3/5">

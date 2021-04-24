@@ -5,5 +5,5 @@
 @tailwind utilities;
 
 .searchBoxText {
-    @apply text-xs text-gray-400 font-normal;
+    @apply text-xs text-colliersGray-400 font-normal;
 }

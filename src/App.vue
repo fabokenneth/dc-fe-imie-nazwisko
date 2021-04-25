@@ -88,7 +88,7 @@
                 {{ t('species.' + character.species.replaceAll(' ', '')) }}
               </td>
               <td class="pl-6 py-3">
-                {{ character.episode[character.episode.length - 1].episode }}
+                {{ lastEpisodeOf(character) }}
               </td>
               <td class="pl-6 py-3">
                 <div
@@ -280,7 +280,7 @@ export default defineComponent({
           console.warn(e);
         }
       }
-    })
+    });
 
     const saveFavorites = () => localStorage.setItem("favorites", JSON.stringify(state.favorites));
     const readFavorites = () => {
@@ -296,10 +296,23 @@ export default defineComponent({
       if (allCharactersTabSelected.value) {
         return state.characters;
       } else if (favoritesTabSelected.value) {
-        return state.favorites;
+        const favoritesClone = [...state.favorites];
+        if (state.searchType === SearchBy.Name) {
+          return favoritesClone.filter(c => c.name.toLowerCase().includes(state.searchText.toLowerCase()));
+        } else if (state.searchType === SearchBy.Identifier) {
+          return favoritesClone.filter(c => {
+            const idAsString = c.id + "";
+            return idAsString.includes(state.searchText);
+          });
+        } else if (state.searchType === SearchBy.Episode) {
+          return favoritesClone.filter(c => lastEpisodeOf(c).toLowerCase().includes(state.searchText.toLowerCase()));
+        }
+        return favoritesClone;
       }
       return [];
     });
+
+    const lastEpisodeOf = (character: Character): string => character.episode[character.episode.length - 1].episode;
 
     return {
       t: i18n.t,
@@ -311,7 +324,8 @@ export default defineComponent({
       navigateTo,
       toggleFavorite,
       isFavorite,
-      characters
+      characters,
+      lastEpisodeOf
     }
   }
 })

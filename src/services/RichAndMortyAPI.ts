@@ -41,7 +41,7 @@ export const fetchByIds = async (ids: number[]): Promise<Character[]> => {
             },
             body: JSON.stringify({
                 query: `query {
-                            charactersByIds( ids:` + ids + `) {
+                            charactersByIds( ids:[` + ids + `]) {
                                 id,
                                 name,
                                 species,

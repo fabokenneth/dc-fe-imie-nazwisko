@@ -8,6 +8,7 @@
         <search-block
           v-model:search-text="state.searchText"
           v-model:search-type="state.searchType"
+          :fetch-data="searchInAllCharactersTab"
         />
       </div>
       <div class="ml-5 w-28">
@@ -304,37 +305,34 @@
         }
       )
 
-      watch(
-        () => state.searchText,
-        async (newValue) => {
-          if (allCharactersTabSelected.value) {
-            try {
-              if (state.searchType === SearchBy.Name) {
-                navigateTo(1)
-              } else if (state.searchType === SearchBy.Identifier) {
-                let id
-                if (!(state.searchText === '' || isNaN(+state.searchText))) {
-                  id = Number(state.searchText)
-                  let response = await fetchById(id)
-                  state.pages = 0
-                  state.characters = [{ ...response }]
-                } else if (state.searchText === '') {
-                  const response = await getCharacters(1, {
-                    searchType: SearchBy.Name,
-                    searchText: '',
-                  })
-                  state.pages = response.info.pages
-                  state.characters = response.results
-                } else {
-                  state.characters = []
-                }
+      const searchInAllCharactersTab = async () => {
+        if (allCharactersTabSelected.value) {
+          try {
+            if (state.searchType === SearchBy.Name) {
+              navigateTo(1)
+            } else if (state.searchType === SearchBy.Identifier) {
+              let id
+              if (!(state.searchText === '' || isNaN(+state.searchText))) {
+                id = Number(state.searchText)
+                let response = await fetchById(id)
+                state.pages = 0
+                state.characters = [{ ...response }]
+              } else if (state.searchText === '') {
+                const response = await getCharacters(1, {
+                  searchType: SearchBy.Name,
+                  searchText: '',
+                })
+                state.pages = response.info.pages
+                state.characters = response.results
+              } else {
+                state.characters = []
               }
-            } catch (e) {
-              console.warn(e)
             }
+          } catch (e) {
+            console.warn(e)
           }
         }
-      )
+      }
       const saveFavorites = () =>
         localStorage.setItem('favorites', JSON.stringify(state.favorites))
       const readFavorites = () => {
@@ -387,6 +385,7 @@
         isFavorite,
         characters,
         lastEpisodeOf,
+        searchInAllCharactersTab,
       }
     },
   })

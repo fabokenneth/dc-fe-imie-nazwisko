@@ -14,7 +14,7 @@
       />
     </div>
     <div class="w-3/5">
-      <search-text-input v-model="state.searchText" />
+      <search-text-input v-model="state.searchText" :execute="fetchData" />
     </div>
   </div>
 </template>
@@ -39,6 +39,10 @@
       },
       searchType: {
         type: String as PropType<SearchBy>,
+        required: true,
+      },
+      fetchData: {
+        type: Function as PropType<() => void>,
         required: true,
       },
     },

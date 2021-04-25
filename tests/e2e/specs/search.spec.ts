@@ -5,8 +5,7 @@ describe('Search', () => {
   it('No Filter', () => {
     cy.visit('/')
     searchByCriteria('', '')
-    const charactersAreaList = getCharactersList()
-    charactersAreaList
+    getCharactersList()
       .assertHasEntry('1', 'Rick Sanchez', 'Male', 'Human', 'S04E10')
       .assertHasEntry('2', 'Morty Smith', 'Male', 'Human', 'S04E10')
       .assertHasEntry('3', 'Summer Smith', 'Female', 'Human', 'S04E10')
@@ -15,8 +14,7 @@ describe('Search', () => {
   it('No Filter page 4', () => {
     cy.visit('/')
     goToPage('4')
-    const charactersAreaList = getCharactersList()
-    charactersAreaList
+    getCharactersList()
       .assertHasEntry('61', 'Campaign Manager Morty', 'Male', 'Human', 'S03E07')
       .assertHasEntry('62', 'Canklanker Thom', 'Male', 'Alien', 'S01E01')
       .assertHasEntry(
@@ -30,35 +28,23 @@ describe('Search', () => {
   })
 
   it('By Name', () => {
+    cy.visit('/')
     searchByCriteria('Name', 'Rick{enter}')
-    const charactersAreaList = getCharactersList()
-    charactersAreaList
+    getCharactersList()
       .assertHasEntry('1', 'Rick Sanchez', 'Male', 'Human', 'S04E10')
       .assertHasEntry('8', 'Adjudicator Rick', 'Male', 'Human', 'S03E07')
       .assertHasEntry('15', 'Alien Rick', 'Male', 'Alien', 'S01E10')
   })
-  //
-  // it('By Identifier', () => {
-  //   searchByCriteria('Identifier', '3{enter}')
-  //   const charactersAreaList = goToCharactersAreaList()
-  //   charactersAreaList.assertHasEntry(
-  //     '3',
-  //     'Alien Rick',
-  //     'Female',
-  //     'Humanoid',
-  //     'S04E02'
-  //   )
-  // })
-  //
-  // it('By Episode', () => {
-  //   searchByCriteria('Episode', 'S04E10{enter}')
-  //   const charactersAreaList = goToCharactersAreaList()
-  //   charactersAreaList.assertHasEntry(
-  //     '1',
-  //     'Rick Sanchez',
-  //     'Male',
-  //     'Human',
-  //     'S04E10'
-  //   )
-  // })
+
+  it('By Identifier', () => {
+    cy.visit('/')
+    searchByCriteria('Identifier', '8{enter}')
+    getCharactersList().assertHasEntry(
+      '8',
+      'Adjudicator Rick',
+      'Male',
+      'Human',
+      'S03E07'
+    )
+  })
 })

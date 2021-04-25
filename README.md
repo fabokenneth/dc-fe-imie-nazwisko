@@ -48,7 +48,7 @@ Rick & Morty series and create a list of favorite characters.
     1. List All Characters
     2. Mark/Unmark Some Characters as Favorite
     3. Go to Specific page
-    4. Filter by Name, Identifier or Episode
+    4. Filter by Name or Identifier
     
 
 2. List Favorites Characters

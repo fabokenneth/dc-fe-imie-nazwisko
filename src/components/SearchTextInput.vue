@@ -5,6 +5,7 @@
       type="search"
       class="w-4/5 border-0 p-1 focus:outline-none"
       data-test-id="search-field"
+      @keyup.enter="onSubmit"
     />
     <div
       class="mt-2 mr-2 text-colliersCyan-400 cursor-pointer"

@@ -6,7 +6,7 @@ const {
 } = useCypressCommands()
 
 describe('Favorite Charaters', () => {
-  it('Select favorite characters and check favorite tab ', () => {
+  it('List All Favorites', () => {
     cy.visit('/')
     const charactersAreaList = getCharactersList()
     charactersAreaList.markAsFavorite('1').markAsFavorite('3')
@@ -15,7 +15,7 @@ describe('Favorite Charaters', () => {
       .assertHasEntry('1', 'Rick Sanchez', 'Male', 'Human', 'S04E10')
       .assertHasEntry('3', 'Summer Smith', 'Female', 'Human', 'S04E10')
   })
-  it('By Name', () => {
+  it('Search By Name', () => {
     cy.visit('/')
     const charactersAreaList = getCharactersList()
     charactersAreaList.markAsFavorite('1').markAsFavorite('3')
@@ -32,7 +32,7 @@ describe('Favorite Charaters', () => {
       'S04E10'
     )
   })
-  it('By Identifier', () => {
+  it('Search By Identifier', () => {
     cy.visit('/')
     const charactersAreaList = getCharactersList()
     charactersAreaList.markAsFavorite('1').markAsFavorite('3')
@@ -49,7 +49,7 @@ describe('Favorite Charaters', () => {
       'S04E10'
     )
   })
-  it('By Episode', () => {
+  it('Search By Episode', () => {
     cy.visit('/')
     const charactersAreaList = getCharactersList()
     charactersAreaList.markAsFavorite('1').markAsFavorite('6')

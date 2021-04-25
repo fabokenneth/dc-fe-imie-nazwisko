@@ -8,7 +8,10 @@
       </div>
     </div>
     <div class="w-40 border-l border-r border-colliersGray-400 h-full">
-      <search-type-picker v-model="state.searchType" />
+      <search-type-picker
+        v-model="state.searchType"
+        data-test-id="search-criteria"
+      />
     </div>
     <div class="w-3/5">
       <search-text-input v-model="state.searchText" />

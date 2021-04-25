@@ -2,105 +2,111 @@
   <div class="flex flex-col items-center">
     <div class="flex items-center w-full">
       <div class="w-32 mr-10 ml-20">
-        <img alt="" src="./assets/logo.png"/>
+        <img alt="" src="./assets/logo.png" />
       </div>
       <div>
         <search-block
-            v-model:search-text="state.searchText"
-            v-model:search-type="state.searchType"
+          v-model:search-text="state.searchText"
+          v-model:search-type="state.searchType"
         />
       </div>
       <div class="ml-5 w-28">
-        <language-picker/>
+        <language-picker />
       </div>
     </div>
-    <hr class="border-1 border-colliersGray-300 w-full mt-12"/>
+    <hr class="border-1 border-colliersGray-300 w-full mt-12" />
     <div class="mt-4 w-full">
       <div class="flex items-center ml-20 space-x-16 text-gray-500 mb-4">
         <div
-            :class="{selectedTab: allCharactersTabSelected}"
-            class="tab"
-            @click="onTabClicked(TabType.AllCharacters)"
+          :class="{ selectedTab: allCharactersTabSelected }"
+          class="tab"
+          data-test-id="characters-area-mn"
+          @click="onTabClicked(TabType.AllCharacters)"
         >
-          {{ t("datagrid.allCharacters_btn") }}
+          {{ t('datagrid.allCharacters_btn') }}
         </div>
         <div
-            :class="{selectedTab: favoritesTabSelected}"
-            class="tab"
-            @click="onTabClicked(TabType.Favorites)"
+          :class="{ selectedTab: favoritesTabSelected }"
+          class="tab"
+          data-test-id="favorite-characters-area-mn"
+          @click="onTabClicked(TabType.Favorites)"
         >
           {{ t('datagrid.favorites_btn') }}
         </div>
       </div>
       <div class="w-full">
-        <table class="text-left text-colliersGray-400 mb-12">
+        <table
+          class="text-left text-colliersGray-400 mb-12"
+          data-test-id="characters-area-list"
+        >
           <thead class="bg-colliersGray-300">
-          <tr class="h-14">
-            <th class="w-1/12 pl-20 pr-20 py-3">
-              {{ t('datagrid.photo_th') }}
-            </th>
-            <th class="w-1/12 pl-6 py-3">
-              {{ t('datagrid.characterId_th') }}
-            </th>
-            <th class="w-1/12 pl-6 py-3">{{ t('datagrid.name_th') }}</th>
-            <th class="w-1/12 pl-6 py-3">{{ t('datagrid.gender_th') }}</th>
-            <th class="w-1/12 pl-6 py-3">{{ t('datagrid.species_th') }}</th>
-            <th class="w-1/12 pl-6 py-3">
-              {{ t('datagrid.lastEpisode_th') }}
-            </th>
-            <th class="w-1/12 pl-6 py-3">
-              {{ t('datagrid.addToFavorites_th') }}
-            </th>
-          </tr>
+            <tr class="h-14">
+              <th class="w-1/12 pl-20 pr-20 py-3">
+                {{ t('datagrid.photo_th') }}
+              </th>
+              <th class="w-1/12 pl-6 py-3">
+                {{ t('datagrid.characterId_th') }}
+              </th>
+              <th class="w-1/12 pl-6 py-3">{{ t('datagrid.name_th') }}</th>
+              <th class="w-1/12 pl-6 py-3">{{ t('datagrid.gender_th') }}</th>
+              <th class="w-1/12 pl-6 py-3">{{ t('datagrid.species_th') }}</th>
+              <th class="w-1/12 pl-6 py-3">
+                {{ t('datagrid.lastEpisode_th') }}
+              </th>
+              <th class="w-1/12 pl-6 py-3">
+                {{ t('datagrid.addToFavorites_th') }}
+              </th>
+            </tr>
           </thead>
           <tbody>
-          <tr
+            <tr
               v-for="character in characters"
               :key="character.id"
               class="mt-1 h-20 border-b border-colliersGray-300"
-          >
-            <td class="pl-20 pr-40">
-              <div class="w-16 aspect-w-5 aspect-h-2 my-2">
-                <img :src="character.image" alt=""/>
-              </div>
-            </td>
-            <td class="pl-6 py-3">
-              {{ character.id }}
-            </td>
-            <td class="pl-6 py-3">
-              {{ character.name }}
-            </td>
-            <td class="pl-6 py-3">
-              <div class="flex items-center">
-                <gender :type="character.gender"/>
-                <div>
-                  {{ t("gender." + character.gender) }}
+              :data-test-id="'characterId-' + character.id"
+            >
+              <td class="pl-20 pr-40">
+                <div class="w-16 aspect-w-5 aspect-h-2 my-2">
+                  <img :src="character.image" alt="" />
                 </div>
-              </div>
-            </td>
-            <td class="pl-6 py-3">
-              {{ t("species." + character.species.replaceAll(" ", "")) }}
-            </td>
-            <td class="pl-6 py-3">
-              {{ character.episode[character.episode.length - 1].episode }}
-            </td>
-            <td class="pl-6 py-3">
-              <div
-                  :class="{isFavorite: isFavorite(character), isNotFavorite: !isFavorite(character)}"
+              </td>
+              <td class="pl-6 py-3">
+                {{ character.id }}
+              </td>
+              <td class="pl-6 py-3">
+                {{ character.name }}
+              </td>
+              <td class="pl-6 py-3">
+                <div class="flex items-center">
+                  <gender :type="character.gender" />
+                  <div>
+                    {{ t('gender.' + character.gender) }}
+                  </div>
+                </div>
+              </td>
+              <td class="pl-6 py-3">
+                {{ t('species.' + character.species.replaceAll(' ', '')) }}
+              </td>
+              <td class="pl-6 py-3">
+                {{ character.episode[character.episode.length - 1].episode }}
+              </td>
+              <td class="pl-6 py-3">
+                <div
+                  :class="{
+                    isFavorite: isFavorite(character),
+                    isNotFavorite: !isFavorite(character),
+                  }"
                   class="w-11 h-11 border-2 border-colliersCyan-400 rounded-md flex items-center justify-center cursor-pointer"
                   @click="toggleFavorite(character)"
-              >
-                <i class="material-icons">star</i>
-              </div>
-            </td>
-          </tr>
+                >
+                  <i class="material-icons">star</i>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
         <div v-if="allCharactersTabSelected" class="pl-20 mb-8">
-          <pagination
-              :fetchData="navigateTo"
-              :total="state.pages"
-          />
+          <pagination :fetch-data="navigateTo" :total="state.pages" />
         </div>
       </div>
     </div>
@@ -108,29 +114,25 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, nextTick, onMounted, reactive, watch, watchEffect} from 'vue'
-import SearchTypePicker from "./components/SearchTypePicker.vue";
-import {SearchBy} from "./types/Ui.interface";
-import {Character} from "./types/CharactersType.interface";
-import LanguagePicker from "./components/LanguagePicker.vue";
-import SearchTextInput from "./components/SearchTextInput.vue";
-import SearchBlock from "./components/SearchBlock.vue";
-import Pagination from "./components/Pagination.vue";
-import Gender from "./components/Gender.vue";
-import {useI18n} from "vue-i18n";
-import {getCharacters, fetchByIds } from "./services/RichAndMortyAPI"
+import {computed, defineComponent, nextTick, onMounted, reactive, watch} from 'vue'
+  import { SearchBy } from './types/Ui.interface'
+  import { Character } from './types/CharactersType.interface'
+  import LanguagePicker from './components/LanguagePicker.vue'
+  import SearchBlock from './components/SearchBlock.vue'
+  import Pagination from './components/Pagination.vue'
+  import Gender from './components/Gender.vue'
+  import { useI18n } from 'vue-i18n'
+import {fetchByIds, getCharacters} from './services/RichAndMortyAPI'
 
-enum TabType {
-  AllCharacters,
-  Favorites,
-}
+  enum TabType {
+    AllCharacters,
+    Favorites,
+  }
 
 export default defineComponent({
   name: 'App',
   components: {
-    "search-type-picker": SearchTypePicker,
     "language-picker": LanguagePicker,
-    "search-text-input": SearchTextInput,
     "search-block": SearchBlock,
     "pagination": Pagination,
     "gender": Gender

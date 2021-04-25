@@ -21,21 +21,21 @@
           en: {
             menuItem: {
               en_lbl: 'English',
-              fr_lbl: 'French',
-              de_lbl: 'German',
+              fr_lbl: 'Francais',
+              de_lbl: 'Deutsch',
             },
           },
           fr: {
             menuItem: {
-              en_lbl: 'Anglais',
+              en_lbl: 'English',
               fr_lbl: 'Francais',
-              de_lbl: 'Allemand',
+              de_lbl: 'Deutsch',
             },
           },
           de: {
             menuItem: {
-              en_lbl: 'Englisch',
-              fr_lbl: 'Französisch',
+              en_lbl: 'English',
+              fr_lbl: 'Francais',
               de_lbl: 'Deutsch',
             },
           },

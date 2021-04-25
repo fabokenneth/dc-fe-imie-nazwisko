@@ -22,4 +22,4 @@ Rick & Morty series and create a list of favorite characters.
 ### To run the e2e tests
 1. go to the root folder of the project and execute ` npm run dev`
 2. execute this command `npm run test:e2e_debug` then you will have the interface of cypress opened
-3. Choose the TestSuite you want to execute and the browser to use .
+3. Choose the TestSuite you want to execute and choose the browser to use .

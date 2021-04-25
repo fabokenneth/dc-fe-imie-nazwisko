@@ -1,14 +1,31 @@
-import {Character, CharactersTypes, ResponseData} from '../types/CharactersType.interface'
+import {
+  Character,
+  CharactersTypes,
+  ResponseData,
+  RequestData,
+} from '../types/CharactersType.interface'
 
-export const getCharacters = async (currentPage: number): Promise<CharactersTypes> => {
-    const result: ResponseData = await fetch('https://rickandmortyapi.com/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            query: `query {
-                        characters(page:` + currentPage + `, filter: { }) {
+export const getCharacters = async (
+  currentPage: number,
+  request: RequestData
+): Promise<CharactersTypes> => {
+  const result: ResponseData = await fetch(
+    'https://rickandmortyapi.com/graphql',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query:
+          `query {
+                        characters(page:` +
+          currentPage +
+          `, filter: { ` +
+          request.searchType +
+          `:"` +
+          request.searchText +
+          `" }) {
                             info {
                               count,
                               pages
@@ -26,22 +43,28 @@ export const getCharacters = async (currentPage: number): Promise<CharactersType
                               }
                             }
                           }
-                        }`
-        }),
-    }).then((res) => res.json());
-    return result.data.characters;
+                        }`,
+      }),
+    }
+  ).then((res) => res.json())
+  return result.data.characters
 }
 
 export const fetchByIds = async (ids: number[]): Promise<Character[]> => {
-    if (ids && ids.length > 0) {
-        const result: ResponseData = await fetch('https://rickandmortyapi.com/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query: `query {
-                            charactersByIds( ids:[` + ids + `]) {
+  if (ids && ids.length > 0) {
+    const result: ResponseData = await fetch(
+      'https://rickandmortyapi.com/graphql',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query:
+            `query {
+                            charactersByIds( ids:[` +
+            ids +
+            `]) {
                                 id,
                                 name,
                                 species,
@@ -53,10 +76,43 @@ export const fetchByIds = async (ids: number[]): Promise<Character[]> => {
                                     air_date
                                 }
                               }                            
-                            }`
-            }),
-        }).then((res) => res.json())
-        return result.data.charactersByIds;
+                            }`,
+        }),
+      }
+    ).then((res) => res.json())
+    return result.data.charactersByIds
+  }
+  return []
+}
+
+export const fetchById = async (id: number): Promise<Character> => {
+  const result: ResponseData = await fetch(
+    'https://rickandmortyapi.com/graphql',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query:
+          `query {
+                            character( id:` +
+          id +
+          `) {
+                                id,
+                                name,
+                                species,
+                                gender,
+                                image,
+                                episode {
+                                    id
+                                    episode
+                                    air_date
+                                }
+                              }                            
+                            }`,
+      }),
     }
-    return [];
+  ).then((res) => res.json())
+  return result.data.character
 }

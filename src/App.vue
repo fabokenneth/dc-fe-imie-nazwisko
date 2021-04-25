@@ -129,7 +129,11 @@
   import Pagination from './components/Pagination.vue'
   import Gender from './components/Gender.vue'
   import { useI18n } from 'vue-i18n'
-  import { fetchByIds, getCharacters } from './services/RichAndMortyAPI'
+  import {
+    fetchByIds,
+    getCharacters,
+    fetchById,
+  } from './services/RichAndMortyAPI'
 
   enum TabType {
     AllCharacters,
@@ -265,9 +269,12 @@
       const onTabClicked = (tabType: TabType) => (state.activeTab = tabType)
 
       const navigateTo = async (page: number) => {
-        const response = await getCharacters(page)
-        state.pages = response.info.pages
-        state.characters = response.results
+        const response = await getCharacters(page, {
+          searchType: state.searchType,
+          searchText: state.searchText,
+        })
+        state.pages = response?.info.pages
+        state.characters = response?.results
       }
 
       const toggleFavorite = (character: Character) => {
@@ -297,6 +304,37 @@
         }
       )
 
+      watch(
+        () => state.searchText,
+        async (newValue) => {
+          if (allCharactersTabSelected.value) {
+            try {
+              if (state.searchType === SearchBy.Name) {
+                navigateTo(1)
+              } else if (state.searchType === SearchBy.Identifier) {
+                let id
+                if (!(state.searchText === '' || isNaN(+state.searchText))) {
+                  id = Number(state.searchText)
+                  let response = await fetchById(id)
+                  state.pages = 0
+                  state.characters = [{ ...response }]
+                } else if (state.searchText === '') {
+                  const response = await getCharacters(1, {
+                    searchType: SearchBy.Name,
+                    searchText: '',
+                  })
+                  state.pages = response.info.pages
+                  state.characters = response.results
+                } else {
+                  state.characters = []
+                }
+              }
+            } catch (e) {
+              console.warn(e)
+            }
+          }
+        }
+      )
       const saveFavorites = () =>
         localStorage.setItem('favorites', JSON.stringify(state.favorites))
       const readFavorites = () => {

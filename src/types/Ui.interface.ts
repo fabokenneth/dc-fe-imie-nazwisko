@@ -1,16 +1,16 @@
 export interface DropdownMenuItemData {
-    id: SearchBy | Language;
-    index: number;
+  id: SearchBy | Language
+  index: number
 }
 
 export enum SearchBy {
-    Name = "name",
-    Identifier = "identifier",
-    Episode = "episode"
+  Name = 'name',
+  Identifier = 'identifier',
+  Episode = 'episode',
 }
 
 export enum Language {
-    English = "en",
-    French = "fr",
-    German = "de"
+  English = 'en',
+  French = 'fr',
+  German = 'de',
 }

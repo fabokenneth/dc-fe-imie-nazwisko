@@ -1,27 +1,25 @@
-# Vue 3 + Typescript + Vite
+# Digital Colliers Task
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
+The goal of the task is to create a SPA that will allow its users to browse characters of
+Rick & Morty series and create a list of favorite characters.
 
-## Recommended IDE Setup
+## Link To The app
+[https://dreamy-shannon-a90ada.netlify.app/](https://dreamy-shannon-a90ada.netlify.app/)
 
-[VSCode](https://code.visualstudio.com/) + [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur). Make sure to enable `vetur.experimental.templateInterpolationService` in settings!
+## Technologies
+1. Vue 3 
+2. Vite
+3. TypeScript
+4. GraphQL
+5. Tailwind Css
+6. Cypress for End to End Testing
 
-### If Using `<script setup>`
+### To run the app locally
 
-[`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
+1. go to the root folder of the project and execute ` npm run dev`
+2. You will have the link to access the app locally (ex: `http://localhost:3000/`)
 
-## Type Support For `.vue` Imports in TS
-
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can use the following:
-
-### If Using Volar
-
-Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
-
-### If Using Vetur
-
-1. Install and add `@vuedx/typescript-plugin-vue` to the [plugins section](https://www.typescriptlang.org/tsconfig#plugins) in `tsconfig.json`
-2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
-3. Open `src/main.ts` in VSCode
-4. Open the VSCode command palette
-5. Search and run "Select TypeScript version" -> "Use workspace version"
+### To run the e2e tests
+1. go to the root folder of the project and execute ` npm run dev`
+2. execute this command `npm run test:e2e_debug` then you will have the interface of cypress opened
+3. Choose the TestSuite you want to execute and the browser to use .

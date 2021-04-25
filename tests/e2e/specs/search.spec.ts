@@ -29,14 +29,14 @@ describe('Search', () => {
       .assertHasEntry('64', 'Chris', 'Unknown', 'Alien', 'S02E01')
   })
 
-  // it('By Name', () => {
-  //   searchByCriteria('Name', 'Rich{enter}')
-  //   const charactersAreaList = goToCharactersAreaList()
-  //   charactersAreaList
-  //     .assertHasEntry('1', 'Rick Sanchez', 'Male', 'Human', 'S04E10')
-  //     .assertHasEntry('2', 'Morty Smith', 'Male', 'Human', 'S04E10')
-  //     .assertHasEntry('3', 'Summer Smith', 'Female', 'Human', 'S04E10')
-  // })
+  it('By Name', () => {
+    searchByCriteria('Name', 'Rick{enter}')
+    const charactersAreaList = getCharactersList()
+    charactersAreaList
+      .assertHasEntry('1', 'Rick Sanchez', 'Male', 'Human', 'S04E10')
+      .assertHasEntry('8', 'Adjudicator Rick', 'Male', 'Human', 'S03E07')
+      .assertHasEntry('15', 'Alien Rick', 'Male', 'Alien', 'S01E10')
+  })
   //
   // it('By Identifier', () => {
   //   searchByCriteria('Identifier', '3{enter}')

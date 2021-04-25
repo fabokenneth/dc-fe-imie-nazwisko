@@ -51,8 +51,12 @@ export function useCypressCommands() {
       cy.get("[data-test-id='search-field']").type(searchedText)
     }
   }
-
+  function goToPage(page: string) {
+    cy.get("[data-test-id='pagination-page-" + page + "']").click()
+    return getCharactersList()
+  }
   return {
+    goToPage,
     goToCharactersAreaList,
     getCharactersList,
     searchByCriteria,

@@ -17,14 +17,7 @@
 </template>
 
 <script lang="ts">
-  import {
-    defineComponent,
-    nextTick,
-    PropType,
-    reactive,
-    ref,
-    watch,
-  } from 'vue'
+  import { defineComponent, nextTick, PropType, reactive, watch } from 'vue'
 
   export default defineComponent({
     name: 'SearchTextInput',

@@ -1,8 +1,13 @@
 export interface ResponseData {
-  data: Result
+  data: Characters & CharactersByIds
 }
-export interface Result {
-  characters: CharactersTypes
+
+export interface CharactersByIds {
+  charactersByIds: Character[],
+}
+
+export interface Characters {
+  characters: CharactersTypes,
 }
 export interface CharactersTypes {
   info: Info

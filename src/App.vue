@@ -108,7 +108,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, nextTick, onMounted, reactive} from 'vue'
+import {computed, defineComponent, nextTick, onMounted, reactive, watch, watchEffect} from 'vue'
 import SearchTypePicker from "./components/SearchTypePicker.vue";
 import {SearchBy} from "./types/Ui.interface";
 import {Character} from "./types/CharactersType.interface";
@@ -118,7 +118,7 @@ import SearchBlock from "./components/SearchBlock.vue";
 import Pagination from "./components/Pagination.vue";
 import Gender from "./components/Gender.vue";
 import {useI18n} from "vue-i18n";
-import {getCharacters} from "./services/RichAndMortyAPI"
+import {getCharacters, fetchByIds } from "./services/RichAndMortyAPI"
 
 enum TabType {
   AllCharacters,
@@ -239,7 +239,7 @@ export default defineComponent({
       activeTab: TabType.AllCharacters,
       pages: 0,
       characters: [] as Character[],
-      favorites: [] as number[]
+      favorites: [] as Character[]
     });
 
     onMounted(() => {
@@ -253,20 +253,32 @@ export default defineComponent({
 
     const navigateTo = async (page: number) => {
       const response = await getCharacters(page);
-      state.pages = response.data.characters.info.pages;
-      state.characters = response.data.characters.results;
+      state.pages = response.info.pages;
+      state.characters = response.results;
     }
 
     const toggleFavorite = (character: Character) => {
       if (isFavorite(character)) {
-        state.favorites = state.favorites.filter(c => c !== character.id);
+        state.favorites = state.favorites.filter(c => c.id !== character.id);
       } else {
-        state.favorites.push(character.id);
+        state.favorites.push(character);
       }
       nextTick(() => saveFavorites());
     }
 
-    const isFavorite = (character: Character) => state.favorites.includes(character.id);
+    const isFavorite = (character: Character) => state.favorites
+        .map(c => c.id)
+        .includes(character.id);
+
+    watch(() => favoritesTabSelected.value, async (newValue) => {
+      if (favoritesTabSelected.value) {
+        try {
+          state.favorites = await fetchByIds(state.favorites.map(c => c.id));
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+    })
 
     const saveFavorites = () => localStorage.setItem("favorites", JSON.stringify(state.favorites));
     const readFavorites = () => {
@@ -282,7 +294,7 @@ export default defineComponent({
       if (allCharactersTabSelected.value) {
         return state.characters;
       } else if (favoritesTabSelected.value) {
-        return state.characters.filter(c => isFavorite(c));
+        return state.favorites;
       }
       return [];
     });

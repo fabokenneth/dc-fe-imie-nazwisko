@@ -39,9 +39,15 @@ export function useCypressCommands() {
   }
 
   function searchByCriteria(criteria: string, searchedText: string) {
-    cy.visit('/')
     if (criteria && searchedText) {
-      cy.get("[data-test-id='search-criteria']").select(criteria)
+      cy.get("[data-test-id='search-criteria']").click()
+      if (criteria === 'Name') {
+        cy.get("[data-test-id='item-0']").click()
+      } else if (criteria === 'Identifier') {
+        cy.get("[data-test-id='item-1']").click()
+      } else if (criteria === 'Episode') {
+        cy.get("[data-test-id='item-2']").click()
+      }
       cy.get("[data-test-id='search-field']").type(searchedText)
     }
   }

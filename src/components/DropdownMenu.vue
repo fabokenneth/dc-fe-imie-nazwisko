@@ -33,6 +33,7 @@
         v-slot="{ active }"
         class="menuItem"
         :class="index > -1 ? 'border-t border-colliersGray-400' : ''"
+        :data-test-id="'item-' + itemData.index"
         @click="onItemSelected(itemData)"
       >
         <div

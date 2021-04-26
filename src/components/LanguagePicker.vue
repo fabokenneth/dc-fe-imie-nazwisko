@@ -9,7 +9,7 @@
   import { useI18n } from 'vue-i18n'
 
   export default defineComponent({
-    name: 'SearchTypePicker',
+    name: 'LanguagePicker',
     components: {
       'dropdown-menu': DropdownMenu,
     },

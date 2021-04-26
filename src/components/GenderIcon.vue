@@ -1,7 +1,16 @@
 <template>
-  <div class="fill-current">
-    <svg v-if="isMale" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24"
-         width="24px" xmlns="http://www.w3.org/2000/svg">
+  <div
+      class="fill-current"
+      :data-test-id="type"
+  >
+    <svg
+        v-if="isMale"
+        enable-background="new 0 0 24 24"
+        height="24px"
+        viewBox="0 0 24 24"
+        width="24px"
+        xmlns="http://www.w3.org/2000/svg"
+    >
       <rect fill="none" height="24" width="24"/>
       <path
           d="M9.5,11c1.93,0,3.5,1.57,3.5,3.5S11.43,18,9.5,18S6,16.43,6,14.5S7.57,11,9.5,11z M9.5,9C6.46,9,4,11.46,4,14.5 S6.46,20,9.5,20s5.5-2.46,5.5-5.5c0-1.16-0.36-2.23-0.97-3.12L18,7.42V10h2V4h-6v2h2.58l-3.97,3.97C11.73,9.36,10.66,9,9.5,9z"/>
@@ -22,14 +31,14 @@ import {computed, defineComponent, PropType} from "vue";
 import {Gender} from "../types/CharactersType.interface";
 
 export default defineComponent({
-  name: "Gender",
+  name: "GenderIcon",
   props: {
     type: {
       type: String as PropType<Gender>,
       required: true
     }
   },
-  setup(props) {
+  setup: (props) => {
     const isMale = computed(() => props.type === Gender.Male)
     const isFemale = computed(() => props.type === Gender.Female)
     const isGenderless = computed(() => props.type === Gender.Genderless)

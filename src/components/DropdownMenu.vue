@@ -26,6 +26,7 @@
     <hui-menu-items
       class="flex flex-col absolute cursor-pointer w-full bg-white rounded-b-xl border-l border-r border-b border-colliersGray-400"
       :class="withBorder ? 'top-12 -mt-1' : 'top-16 -mt-3'"
+      data-test-id="dropdown-menu-items"
     >
       <hui-menu-item
         v-for="(itemData, index) in menuItemsData"

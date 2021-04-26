@@ -13,7 +13,6 @@ Rick & Morty series and create a list of favorite characters.
     3. Go to Specific page 
     4. Filter by Name, Identifier or Episode
 
-
 2. List Favorites Characters
     1. Unmark Some Characters as Favorite
     2. List All Favorites
@@ -23,6 +22,9 @@ Rick & Morty series and create a list of favorite characters.
     1. English
     2. French
     3. German
+
+Searching by episode has been left over because I needed more information to better understand the intention 
+behind the current GraphQL API structure.    
     
 ###  Technologies
 1. Vue 3 (with 100% composition API)
@@ -57,7 +59,13 @@ Rick & Morty series and create a list of favorite characters.
 3. Choose the TestSuite you want to execute and choose the browser to use.
 
 ### Unit tests
+Some unit tests have been implemented too. They target reusable components in priority.
+The tests components are:
+- Gender.vue
+- LanguagePicker.vue
 
+The other components were not tested because I did not have enough times. The idea here is just to demonstrate 
+my capabilities to write unit tests for VUE3 components.
 
 ### Run Unit Tests
 Just execute the following instruction from the project root directory: `npm run test:unit`

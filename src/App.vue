@@ -88,7 +88,7 @@
             </td>
             <td class="pl-6 py-3 hidden sm:table-cell">
               <div class="flex items-center">
-                <gender :type="character.gender"/>
+                <gender-icon :type="character.gender"/>
                 <div>
                   {{ t('gender.' + character.gender) }}
                 </div>
@@ -137,7 +137,7 @@ import {Character} from './types/CharactersType.interface'
 import LanguagePicker from './components/LanguagePicker.vue'
 import SearchBlock from './components/SearchBlock.vue'
 import Pagination from './components/Pagination.vue'
-import Gender from './components/Gender.vue'
+import GenderIcon from './components/GenderIcon.vue'
 import {useI18n} from 'vue-i18n'
 import {
   fetchByIds,
@@ -156,7 +156,7 @@ export default defineComponent({
     'language-picker': LanguagePicker,
     'search-block': SearchBlock,
     pagination: Pagination,
-    gender: Gender,
+    "gender-icon": GenderIcon,
   },
   setup: () => {
     const i18n = useI18n({
@@ -313,7 +313,7 @@ export default defineComponent({
 
     watch(
         () => favoritesTabSelected.value,
-        async (newValue) => {
+        async () => {
           if (favoritesTabSelected.value) {
             try {
               state.favorites = await fetchByIds(

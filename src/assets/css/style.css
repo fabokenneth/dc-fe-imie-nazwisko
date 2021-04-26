@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    @apply font-poppins;
+}
+
 .searchBoxText {
     @apply text-xs text-colliersGray-400 font-normal;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col items-center">
     <div class="flex flex-col space-y-5 md:space-y-0 md:flex-row items-center w-full">
-      <div class="w-full md:w-32 px-4 md:px-0 md:mr-10 md:ml-20 flex justify-between md:justify-start">
+      <div class="w-full md:w-32 px-4 md:px-0 md:mr-10 md:ml-20 flex items-center justify-between md:justify-start">
         <img alt="" class="w-32" src="./assets/logo.png"/>
         <div class="w-28 mr-1">
           <language-picker v-if="!isMedium"/>
@@ -115,7 +115,7 @@
           </tr>
           </tbody>
         </table>
-        <div v-if="allCharactersTabSelected" class="pl-20 mb-8">
+        <div v-if="allCharactersTabSelected" class="pl-5 sm:pl-20 mb-8">
           <pagination :fetch-data="navigateTo" :total="state.pages"/>
         </div>
       </div>

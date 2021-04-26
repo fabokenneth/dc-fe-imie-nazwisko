@@ -71,19 +71,12 @@ export const fetchByIds = async (ids: number[]): Promise<Character[]> => {
 }
 
 export const fetchById = async (id: number): Promise<Character> => {
-  const result: ResponseData = await fetch(
-    'https://rickandmortyapi.com/graphql',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query:
-          `query {
+  const response = await axios.post<ResponseData>(endpoint, {
+    query:
+      `query {
                             character( id:` +
-          id +
-          `) {
+      id +
+      `) {
                                 id,
                                 name,
                                 species,
@@ -96,8 +89,7 @@ export const fetchById = async (id: number): Promise<Character> => {
                                 }
                               }                            
                             }`,
-      }),
-    }
-  ).then((res) => res.json())
-  return result.data.character
+  })
+
+  return response.data.data.character
 }

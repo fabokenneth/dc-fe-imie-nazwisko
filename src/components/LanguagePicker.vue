@@ -13,8 +13,7 @@
     components: {
       'dropdown-menu': DropdownMenu,
     },
-    emits: ['update:modelValue'],
-    setup(props, { emit }) {
+    setup: () => {
       const i18n = useI18n({
         useScope: 'global',
         messages: {
@@ -64,7 +63,6 @@
         () => state.selection,
         (newValue) => {
           i18n.locale.value = newValue.id
-          emit('update:modelValue', newValue.id)
         }
       )
 

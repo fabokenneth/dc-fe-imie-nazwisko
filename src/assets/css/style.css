@@ -8,6 +8,10 @@ body {
     @apply font-poppins;
 }
 
+#app {
+    @apply mt-16;
+}
+
 .searchBoxText {
     @apply text-xs text-colliersGray-400 font-normal;
 }

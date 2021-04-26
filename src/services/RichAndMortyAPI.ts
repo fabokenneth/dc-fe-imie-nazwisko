@@ -1,31 +1,28 @@
+import axios from 'axios'
 import {
   Character,
   CharactersTypes,
   ResponseData,
   RequestData,
+  Characters,
 } from '../types/CharactersType.interface'
 
 export const getCharacters = async (
   currentPage: number,
   request: RequestData
 ): Promise<CharactersTypes> => {
-  const result: ResponseData = await fetch(
+  const response = await axios.post<ResponseData>(
     'https://rickandmortyapi.com/graphql',
     {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        query:
-          `query {
+      query:
+        `query {
                         characters(page:` +
-          currentPage +
-          `, filter: { ` +
-          request.searchType +
-          `:"` +
-          request.searchText +
-          `" }) {
+        currentPage +
+        `, filter: { ` +
+        request.searchType +
+        `:"` +
+        request.searchText +
+        `" }) {
                             info {
                               count,
                               pages
@@ -44,10 +41,9 @@ export const getCharacters = async (
                             }
                           }
                         }`,
-      }),
     }
-  ).then((res) => res.json())
-  return result.data.characters
+  )
+  return response.data.data.characters
 }
 
 export const fetchByIds = async (ids: number[]): Promise<Character[]> => {

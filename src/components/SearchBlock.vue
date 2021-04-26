@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-center justify-start rounded-md border border-colliersGray-400 w-96 h-14"
+    class="flex items-center justify-start rounded-md border border-colliersGray-400 w-full md:w-96 h-14"
   >
     <div class="hidden md:flex items-center h-full pl-1">
       <div class="searchBoxText justify-center w-24">

@@ -7,7 +7,7 @@
           <language-picker v-if="!isMedium"/>
         </div>
       </div>
-      <div class="w-full md:w-96 pl-4 md:pl-0">
+      <div class="w-full md:w-96 pl-4 pr-4 md:pr-2 md:pl-0">
         <search-block
             v-model:search-text="state.searchText"
             v-model:search-type="state.searchType"

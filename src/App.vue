@@ -20,7 +20,7 @@
     </div>
     <hr class="border-1 border-colliersGray-300 w-full mt-12"/>
     <div class="mt-4 w-full">
-      <div class="flex items-center ml-20 space-x-16 text-gray-500 mb-4">
+      <div class="flex items-center pl-4 sm:pl-20 space-x-16 text-gray-500 mb-4">
         <div
             :class="{ selectedTab: allCharactersTabSelected }"
             class="tab"

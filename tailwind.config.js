@@ -1,4 +1,4 @@
-const colors = require("tailwindcss/colors");
+const colors = require('tailwindcss/colors')
 
 module.exports = {
   //mode: "jit",
@@ -8,19 +8,19 @@ module.exports = {
     extend: {
       colors: {
         colliersCyan: {
-          400: "#11B0C8"
+          400: '#11B0C8',
         },
         colliersGray: {
-          300: "#E5EAF4",
-          400: "#A9B1BD"
-        }
-      }
+          300: '#E5EAF4',
+          400: '#A9B1BD',
+        },
+      },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      borderWidth: ['hover'],
+    },
   },
-  plugins: [
-      require("@tailwindcss/aspect-ratio")
-  ],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 }

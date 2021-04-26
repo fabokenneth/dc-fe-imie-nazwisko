@@ -414,6 +414,6 @@
   }
 
   .isNotFavorite {
-    @apply bg-white text-colliersCyan-400;
+    @apply bg-white text-colliersCyan-400 hover:border-4;
   }
 </style>

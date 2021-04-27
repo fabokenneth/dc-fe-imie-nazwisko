@@ -51,7 +51,8 @@ behind the current GraphQL API structure.
 
 2. List Favorites Characters
     1. List All Favorites
-    3. Filter by Name, Identifier or Episode
+    2. Filter by Name, Identifier or Episode
+    3. Specific Message if empty character list
 
 ### To run the e2e tests
 1. go to the root folder of the project and execute ` npm run dev`

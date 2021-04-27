@@ -9,7 +9,7 @@
       "
     >
       <span class="searchBoxText">
-        {{ t('menuItem.' + selectedItem.id + '_lbl') }}
+        {{ t("menuItem." + selectedItem.id + "_lbl") }}
       </span>
       <svg
         class="w-4 h-4 ml-2 -mr-1 text-gray-400"
@@ -24,7 +24,7 @@
       </svg>
     </hui-menu-button>
     <hui-menu-items
-      class="flex flex-col absolute cursor-pointer w-full bg-white rounded-b-xl border-l border-r border-b border-colliersGray-400"
+      class="flex flex-col absolute cursor-pointer w-full bg-white rounded-b-xl border-l border-r border-b border-colliersGray-400 overflow-hidden"
       :class="withBorder ? 'top-12 -mt-1' : 'top-16 -mt-3'"
       data-test-id="dropdown-menu-items"
     >
@@ -40,7 +40,7 @@
         <div
           :class="active ? 'bg-colliersCyan-400 text-white' : 'text-gray-700'"
         >
-          {{ t('menuItem.' + itemData.id + '_lbl') }}
+          {{ t("menuItem." + itemData.id + "_lbl") }}
         </div>
       </hui-menu-item>
     </hui-menu-items>
@@ -48,18 +48,18 @@
 </template>
 
 <script lang="ts">
-  import { computed, defineComponent, PropType, ref } from 'vue'
-  import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-  import { DropdownMenuItemData } from '../types/Ui.interface'
-  import { useI18n } from 'vue-i18n'
+  import { computed, defineComponent, PropType, ref } from "vue"
+  import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue"
+  import { DropdownMenuItemData } from "../types/Ui.interface"
+  import { useI18n } from "vue-i18n"
 
   export default defineComponent({
-    name: 'DropdownMenu',
+    name: "DropdownMenu",
     components: {
-      'hui-menu': Menu,
-      'hui-menu-button': MenuButton,
-      'hui-menu-items': MenuItems,
-      'hui-menu-item': MenuItem,
+      "hui-menu": Menu,
+      "hui-menu-button": MenuButton,
+      "hui-menu-items": MenuItems,
+      "hui-menu-item": MenuItem,
     },
     props: {
       modelValue: {
@@ -76,10 +76,10 @@
         default: false,
       },
     },
-    emits: ['update:modelValue'],
+    emits: ["update:modelValue"],
     setup(props, { emit }) {
       const i18n = useI18n({
-        useScope: 'global',
+        useScope: "global",
       })
       const selectedItem = ref(props.modelValue)
 
@@ -89,7 +89,7 @@
       })
       const onItemSelected = (item: DropdownMenuItemData): void => {
         selectedItem.value = item
-        emit('update:modelValue', item)
+        emit("update:modelValue", item)
       }
 
       return {

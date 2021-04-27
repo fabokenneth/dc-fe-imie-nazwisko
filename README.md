@@ -11,12 +11,14 @@ Rick & Morty series and create a list of favorite characters.
     1. List All Characters 
     2. Mark/Unmark Some Characters as Favorite
     3. Go to Specific page 
-    4. Filter by Name, Identifier or Episode
+    4. Filter by Name or Identifier
+    5. Specific Message if empty character list
 
 2. List Favorites Characters
     1. Unmark Some Characters as Favorite
     2. List All Favorites
-    3. Filter by Name, Identifier or Episode    
+    3. Filter by Name, Identifier or Episode 
+    5. Specific Message if empty character list
 
 3. User is able to choose between the following languages 
     1. English
@@ -52,7 +54,6 @@ behind the current GraphQL API structure.
 2. List Favorites Characters
     1. List All Favorites
     2. Filter by Name, Identifier or Episode
-    3. Specific Message if empty character list
 
 ### To run the e2e tests
 1. go to the root folder of the project and execute ` npm run dev`
